@@ -1,0 +1,31 @@
+<!-- src/app/pages/sleep-log-list/sleep-log-list.component.html -->
+<div class="container">
+    <h2>Sleep Logs</h2>
+    <button (click)="router.navigate(['/logs/new'])">+ New Log</button>
+  
+    <div *ngIf="loading">Loading…</div>
+    <div *ngIf="error" class="error">{{error}}</div>
+  
+    <table *ngIf="!loading && logs.length>0">
+      <thead>
+        <tr>
+          <th>ID</th><th>Start</th><th>End</th><th>Mood</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let log of logs">
+          <td>{{log.id}}</td>
+          <td>{{log.sleepStart}}</td>
+          <td>{{log.sleepEnd}}</td>
+          <td>{{log.mood}}</td>
+          <td>
+            <button (click)="view(log.id)">View</button>
+            <button (click)="edit(log.id)">Edit</button>
+            <button (click)="delete(log.id)">Del</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!loading && logs.length===0">Нет записей</div>
+  </div>
+  

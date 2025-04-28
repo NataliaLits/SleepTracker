@@ -1,0 +1,10 @@
+<!-- src/app/pages/sleep-log-detail/sleep-log-detail.component.html -->
+<div class="container" *ngIf="log">
+    <h2>Sleep Log #{{log.id}}</h2>
+    <p><strong>Start:</strong> {{log.sleepStart}}</p>
+    <p><strong>End:</strong>   {{log.sleepEnd}}</p>
+    <p><strong>Mood:</strong>  {{log.mood}}</p>
+    <button (click)="back()">Back</button>
+  </div>
+  <div *ngIf="error" class="error">{{error}}</div>
+  

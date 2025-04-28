@@ -1,0 +1,88 @@
+<div class="sleep-log-form">
+    <!-- Заголовок формы: New или Edit -->
+    <h2>{{ isEdit ? 'Edit Sleep Log' : 'New Sleep Log' }}</h2>
+  
+    <!-- Самая форма, привязанная к Reactive Form -->
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <!-- Поле начала сна -->
+      <div class="form-group">
+        <label for="sleepStart">Start Time</label>
+        <input
+          id="sleepStart"
+          type="datetime-local"
+          formControlName="sleepStart"
+          class="form-control"
+        />
+        <div
+          *ngIf="
+            form.get('sleepStart')?.invalid &&
+            form.get('sleepStart')?.touched
+          "
+          class="error-message"
+        >
+          Start time is required.
+        </div>
+      </div>
+  
+      <!-- Поле конца сна -->
+      <div class="form-group">
+        <label for="sleepEnd">End Time</label>
+        <input
+          id="sleepEnd"
+          type="datetime-local"
+          formControlName="sleepEnd"
+          class="form-control"
+        />
+        <div
+          *ngIf="
+            form.get('sleepEnd')?.invalid &&
+            form.get('sleepEnd')?.touched
+          "
+          class="error-message"
+        >
+          End time is required.
+        </div>
+      </div>
+  
+      <!-- Поле настроения -->
+      <div class="form-group">
+        <label for="mood">Mood</label>
+        <input
+          id="mood"
+          type="text"
+          formControlName="mood"
+          class="form-control"
+          placeholder="e.g. Happy, Tired…"
+        />
+        <div
+          *ngIf="form.get('mood')?.invalid && form.get('mood')?.touched"
+          class="error-message"
+        >
+          Mood is required.
+        </div>
+      </div>
+  
+      <!-- Кнопка отправки -->
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="form.invalid"
+      >
+        {{ isEdit ? 'Update Log' : 'Create Log' }}
+      </button>
+      <!-- Ссылка назад к списку -->
+      <button
+        type="button"
+        class="btn btn-link"
+        (click)="router.navigate(['/logs'])"
+      >
+        Cancel
+      </button>
+    </form>
+  
+    <!-- Общая ошибка от сервера -->
+    <div *ngIf="error" class="error-message server-error">
+      {{ error }}
+    </div>
+  </div>
+  
