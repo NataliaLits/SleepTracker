@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+/* src/styles.scss */
+
+/* 1) глобальная тема Angular Material */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* 2) CSS-переменные для вашего дизайна */
+:root {
+  --hero-gradient-start: rgba(163,210,202,0.8);
+  --hero-gradient-end:   rgba(247,202,201,0.8);
+  --card-surface:        rgba(255,255,255,0.8);
+  --accent-color:        #F7CAC9;
+  --text-primary:        #333333;
+}
+
+/* 3) базовые стили */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  color: var(--text-primary);
+  background: #fff;
+}
+
