@@ -1,46 +1,36 @@
-import { NgModule }            from '@angular/core';
-import { BrowserModule }       from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule }    from '@angular/common/http';
 
-import { AppComponent }        from './app.component';
-import { AppRoutingModule }    from './app-routing.module';
-import { SleepLogListComponent }    from './pages/sleep-log-list/sleep-log-list.component';
-import { SleepLogFormComponent }    from './pages/sleep-log-form/sleep-log-form.component';
-import { SleepLogDetailComponent }  from './pages/sleep-log-detail/sleep-log-detail.component';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+// Angular Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule }     from '@angular/material/form-field';
 import { MatInputModule }         from '@angular/material/input';
 import { MatButtonModule }        from '@angular/material/button';
 import { MatCardModule }          from '@angular/material/card';
 import { MatTableModule }         from '@angular/material/table';
-import { MatSliderModule }        from '@angular/material/slider';
+
+// ng2-charts
+import { NgChartsModule }         from 'ng2-charts';
+
+import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SleepLogListComponent,
-    SleepLogFormComponent,
-    SleepLogDetailComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+
+    // Material
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatCardModule,
     MatTableModule,
-    MatSliderModule,
-  ],
-  providers: [
-    provideAnimationsAsync()
+
+    // Charts
+    NgChartsModule
   ],
   bootstrap: [AppComponent]
 })

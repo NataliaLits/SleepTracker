@@ -1,75 +1,98 @@
-<main>
+<main class="container">
 
   <!-- HERO -->
   <section class="hero">
-    <div class="overlay">
-      <h1>Track Your Sleep</h1>
-      <p>Log your bedtime and wake-up time with ease</p>
-      <button mat-raised-button color="accent" (click)="showForm = !showForm">
-        {{ showForm ? 'Close Form' : 'Add Record' }}
-      </button>
+    <div class="hero-overlay">
+      <h1>Add Your Sleep Data</h1>
+      <div class="hero-action">
+        <button
+          mat-raised-button
+          class="white-button"
+          (click)="showForm = true">
+          Add Record
+        </button>
+      </div>
     </div>
   </section>
 
-  <!-- FORM -->
-  <section *ngIf="showForm" class="time-form">
-    <form [formGroup]="sleepForm" (ngSubmit)="onSubmit()">
-      <div class="form-row">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Date</mat-label>
-          <input matInput type="date" formControlName="date">
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Bedtime</mat-label>
-          <input matInput type="time" formControlName="startTime">
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Wake-up</mat-label>
-          <input matInput type="time" formControlName="endTime">
-        </mat-form-field>
-      </div>
+  <!-- MODAL FORM -->
+  <div *ngIf="showForm" class="modal-backdrop" (click)="showForm = false">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <form [formGroup]="sleepForm" (ngSubmit)="onSubmit()">
 
-      <!-- Mood Slider -->
-      <div class="mood-slider">
-        <label>Mood:</label>
-        <mat-slider formControlName="mood" min="1" max="10" step="1" tickInterval="1"></mat-slider>
-        <div class="emoji-row">
-          <span *ngFor="let e of emojis"
-                [class.active]="e.value === sleepForm.value.mood">
-            {{ e.symbol }}
-          </span>
+        <div class="field">
+          <label>Date</label>
+          <input matInput type="date" formControlName="date" />
         </div>
-      </div>
 
-      <button mat-flat-button color="primary" type="submit" [disabled]="sleepForm.invalid">
-        Save
-      </button>
-    </form>
+        <div class="field">
+          <label>Fell Asleep</label>
+          <input matInput type="time" formControlName="startTime" />
+        </div>
+
+        <div class="field">
+          <label>Woke Up</label>
+          <input matInput type="time" formControlName="endTime" />
+        </div>
+
+        <div class="field mood-picker">
+          <label>Your Mood</label>
+  <div class="emojis">
+    <div 
+      class="emoji-item" 
+      *ngFor="let e of emojis"
+      (click)="sleepForm.get('mood')!.setValue(e.value)">
+      
+      <span [class.selected]="e.value === selectedMood">
+        {{ e.symbol }}
+      </span>
+      
+      <!-- подпись под эмоджи -->
+      <div class="emoji-label">
+        {{ e.label }}
+      </div>
+    </div>
+  </div>
+</div>
+
+        <button mat-flat-button color="accent" type="submit">
+          Save Record
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- CHART -->
+  <section *ngIf="chartData.labels?.length" class="chart-section">
+    <h2 class="chart-title">Your Sleep Trend</h2>
+    <canvas
+      baseChart
+      [data]="chartData"
+      [options]="chartOptions"
+      type="line">
+    </canvas>
   </section>
 
   <!-- TABLE -->
-  <section class="stats" *ngIf="dataSource.data.length">
+  <section *ngIf="dataSource.data?.length" class="table-section">
     <mat-card>
-      <mat-card-title>Sleep Statistics</mat-card-title>
+      <mat-card-title>Sleep History</mat-card-title>
       <mat-card-content>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
 
-          <!-- Date Column -->
           <ng-container matColumnDef="date">
             <th mat-header-cell *matHeaderCellDef>Date</th>
-            <td mat-cell *matCellDef="let row">{{ row.date }}</td>
+            <td mat-cell        *matCellDef="let r">{{ r.date }}</td>
           </ng-container>
 
-          <!-- Duration Column -->
           <ng-container matColumnDef="duration">
             <th mat-header-cell *matHeaderCellDef>Duration</th>
-            <td mat-cell *matCellDef="let row">{{ row.duration }}</td>
+            <td mat-cell        *matCellDef="let r">{{ r.duration }}</td>
           </ng-container>
 
-          <!-- Mood Column -->
           <ng-container matColumnDef="mood">
             <th mat-header-cell *matHeaderCellDef>Mood</th>
-            <td mat-cell *matCellDef="let row">{{ row.mood }} {{ row.emoji }}</td>
+            <td mat-cell        *matCellDef="let r">{{ r.emoji }}</td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
