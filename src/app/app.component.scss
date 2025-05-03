@@ -1,42 +1,44 @@
-/* Container центрует всё */
+/* Центрируем весь контент */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 2rem;
 }
 
 /* HERO */
 .hero {
   width: 100%;
-  height: 60vh;
+  height: 50vh;
   background:
     linear-gradient(135deg, #ffd1dc, #d1fcff, #d1ffd9),
     url('/assets/images/sunrise-watercolor.jpg') center/cover no-repeat;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 
   .hero-overlay {
     text-align: center;
-    color: #333;
+    background: rgba(255,255,255,0.8);
+    padding: 2rem;
+    border-radius: 12px;
 
     h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 3rem;
       margin: 0;
+      font-size: 3rem;
+      font-family: 'Montserrat', sans-serif;
+      color: #333;
     }
-
-    .hero-action {
-      margin-top: 1.5rem; /* пространство между заголовком и кнопкой */
+    p {
+      margin: 0.5rem 0 1.5rem;
+      font-size: 1.25rem;
+      color: #555;
     }
-
-    /* Белая кнопка с чёрным текстом и скруглением */
     .white-button {
       background: #fff !important;
       color: #000 !important;
       border-radius: 24px;
       padding: 0.75rem 2rem;
-      font-size: 1rem;
       transition: transform 0.1s;
       &:active {
         transform: scale(0.95);
@@ -45,70 +47,77 @@
   }
 }
 
-/* MODAL FORM */
+/* MODAL */
 .modal-backdrop {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.5);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+}
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2.5rem;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 
-  .modal {
-    background: #fff;
-    padding: 2.5rem;  
-    border-radius: 12px;
-    width: 90%;
-    max-width: 680px;   
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  .field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.25rem;
 
-    .field {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 1.25rem; 
-
-      label {
-        margin-bottom: 0.5rem;
-        font-weight: 500;
-      }
-
-      input {
-        padding: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
+    label {
+      margin-bottom: 0.5rem;
+      font-weight: 500;
     }
+    input {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .error {
+      color: #d32f2f;
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+    }
+  }
 
-    .mood-picker {
-      .emojis {
+  .mood-picker {
+    .emojis {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+
+      .emoji-item {
         display: flex;
-        justify-content: space-between;
-        gap: 1rem; /* больше пространства между эмоджи */
-        text-align: center;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
 
         span {
           font-size: 1.75rem;
-          cursor: pointer;
           transition: transform 0.2s;
         }
-
         span.selected {
           transform: scale(1.4);
         }
-
         .emoji-label {
           font-size: 0.75rem;
           color: #555;
           margin-top: 0.25rem;
+          text-align: center;
         }
       }
     }
+  }
 
-    button {
-      width: 100%;
-      padding: 0.75rem;
-      font-size: 1rem;
-    }
+  button[type="submit"] {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
   }
 }
 
@@ -118,11 +127,14 @@
   max-width: 800px;
   margin-top: 2rem;
 
-  .chart-title {
+  h2 {
     text-align: center;
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.5rem;
     margin-bottom: 1rem;
+  }
+  canvas {
+    width: 100% !important;
+    height: auto !important;
   }
 }
 
@@ -133,19 +145,24 @@
   margin-top: 2rem;
 
   mat-card {
-    padding: 1rem;
-    border-radius: 8px;
+    width: 100%;
   }
-
+  mat-card-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
   table {
     width: 100%;
-
-    th.mat-header-cell {
-      background: rgba(200,200,200,0.2);
-    }
-
-    td.mat-cell {
-      padding: 0.75rem 1rem;
-    }
+    border-collapse: collapse;
+  }
+  th.mat-header-cell {
+    background: rgba(0,0,0,0.05);
+    padding: 0.75rem 1rem;
+  }
+  td.mat-cell {
+    padding: 0.75rem 1rem;
+  }
+  .mat-elevation-z1 {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
   }
 }

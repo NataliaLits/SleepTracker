@@ -1,0 +1,46 @@
+.hero-action {
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+  
+  .white-button {
+    background: #fff !important;
+    color: #000 !important;
+    border-radius: 24px;
+    padding: 0.75rem 2rem;
+  }
+  
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center;
+  }
+  
+  .modal {
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+  }
+  
+  .field {
+    display: flex; flex-direction: column; margin-bottom: 1.25rem;
+  }
+  
+  .field label { margin-bottom: 0.5rem; }
+  .field input { padding: 0.5rem; border:1px solid #ccc; border-radius:4px; }
+  
+  .mood-picker .emojis {
+    display: flex; justify-content: space-between; gap:1rem;
+  }
+  
+  .emoji-item {
+    display: flex; flex-direction: column; align-items: center; cursor: pointer;
+  }
+  
+  .emoji-item span { font-size:1.75rem; transition:transform 0.2s; }
+  .emoji-item span.selected { transform: scale(1.4); }
+  
+  .emoji-label { font-size:0.75rem; text-align:center; margin-top:0.25rem; }
+  

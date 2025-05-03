@@ -1,0 +1,8 @@
+<section *ngIf="chartData.labels?.length" class="chart-section">
+  <h2>Your Sleep Trend</h2>
+  <canvas baseChart
+          [data]="chartData"
+          [options]="chartOptions"
+          type="line">
+  </canvas>
+</section>

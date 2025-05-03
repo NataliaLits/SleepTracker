@@ -1,105 +1,13 @@
 <main class="container">
+  <!-- Hero Banner -->
+  <app-hero></app-hero>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-overlay">
-      <h1>Add Your Sleep Data</h1>
-      <div class="hero-action">
-        <button
-          mat-raised-button
-          class="white-button"
-          (click)="showForm = true">
-          Add Record
-        </button>
-      </div>
-    </div>
-  </section>
+  <!-- Add Record Form -->
+  <app-sleep-form (saved)="onRecordSaved()"></app-sleep-form>
 
-  <!-- MODAL FORM -->
-  <div *ngIf="showForm" class="modal-backdrop" (click)="showForm = false">
-    <div class="modal" (click)="$event.stopPropagation()">
-      <form [formGroup]="sleepForm" (ngSubmit)="onSubmit()">
+  <!-- Sleep Trend Chart -->
+  <app-sleep-chart></app-sleep-chart>
 
-        <div class="field">
-          <label>Date</label>
-          <input matInput type="date" formControlName="date" />
-        </div>
-
-        <div class="field">
-          <label>Fell Asleep</label>
-          <input matInput type="time" formControlName="startTime" />
-        </div>
-
-        <div class="field">
-          <label>Woke Up</label>
-          <input matInput type="time" formControlName="endTime" />
-        </div>
-
-        <div class="field mood-picker">
-          <label>Your Mood</label>
-  <div class="emojis">
-    <div 
-      class="emoji-item" 
-      *ngFor="let e of emojis"
-      (click)="sleepForm.get('mood')!.setValue(e.value)">
-      
-      <span [class.selected]="e.value === selectedMood">
-        {{ e.symbol }}
-      </span>
-      
-      <!-- подпись под эмоджи -->
-      <div class="emoji-label">
-        {{ e.label }}
-      </div>
-    </div>
-  </div>
-</div>
-
-        <button mat-flat-button color="accent" type="submit">
-          Save Record
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- CHART -->
-  <section *ngIf="chartData.labels?.length" class="chart-section">
-    <h2 class="chart-title">Your Sleep Trend</h2>
-    <canvas
-      baseChart
-      [data]="chartData"
-      [options]="chartOptions"
-      type="line">
-    </canvas>
-  </section>
-
-  <!-- TABLE -->
-  <section *ngIf="dataSource.data?.length" class="table-section">
-    <mat-card>
-      <mat-card-title>Sleep History</mat-card-title>
-      <mat-card-content>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
-
-          <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef>Date</th>
-            <td mat-cell        *matCellDef="let r">{{ r.date }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="duration">
-            <th mat-header-cell *matHeaderCellDef>Duration</th>
-            <td mat-cell        *matCellDef="let r">{{ r.duration }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="mood">
-            <th mat-header-cell *matHeaderCellDef>Mood</th>
-            <td mat-cell        *matCellDef="let r">{{ r.emoji }}</td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row        *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-      </mat-card-content>
-    </mat-card>
-  </section>
-
+  <!-- Sleep History Table -->
+  <app-history-table></app-history-table>
 </main>

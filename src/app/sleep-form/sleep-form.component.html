@@ -1,0 +1,45 @@
+<div class="hero-action">
+    <button mat-raised-button class="white-button" (click)="openForm()">
+      Add Record
+    </button>
+  </div>
+  
+  <div *ngIf="showForm" class="modal-backdrop" (click)="showForm=false">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <form (ngSubmit)="onSubmit()">
+  
+        <div class="field">
+          <label>Date</label>
+          <input name="date" type="date" [(ngModel)]="session.date" required />
+        </div>
+  
+        <div class="field">
+          <label>Fell Asleep</label>
+          <input name="startTime" type="time" [(ngModel)]="session.startTime" required />
+        </div>
+  
+        <div class="field">
+          <label>Woke Up</label>
+          <input name="endTime" type="time" [(ngModel)]="session.endTime" required />
+        </div>
+  
+        <input type="hidden" name="mood" [(ngModel)]="session.mood" />
+  
+        <div class="field mood-picker">
+          <label>Your Mood</label>
+          <div class="emojis">
+            <div class="emoji-item" *ngFor="let e of emojis"
+                 (click)="session.mood=e.value; selectedMood=e.value">
+              <span [class.selected]="e.value===selectedMood">{{e.symbol}}</span>
+              <div class="emoji-label">{{e.label}}</div>
+            </div>
+          </div>
+        </div>
+  
+        <button mat-flat-button color="accent" type="submit">
+          Save Record
+        </button>
+      </form>
+    </div>
+  </div>
+  
